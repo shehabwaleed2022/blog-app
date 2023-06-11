@@ -1,34 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog</title>
-    <link rel="stylesheet" href="posts.css">
-</head>
-<body>
-    <header>
-        <h1>My Blog</h1>
-    </header>
+@extends('layout')
 
-    <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
+@section('banner')
+  <h1>My blog</h1>
+@endsection
+@section('content')
 
-    <main>
-      @if($posts)
-      @foreach ($posts as $post)
-          {!! $post !!}
-      @endforeach
-      @endif
-    </main>
+  @if($posts)
+    @foreach ($posts as $post)
+        {!! $post !!}
+    @endforeach
+  @endif
 
-    <footer>
-        <p>&copy; 2023 My Blog</p>
-    </footer>
-</body>
-</html>
+@endsection
