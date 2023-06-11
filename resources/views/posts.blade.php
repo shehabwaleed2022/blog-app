@@ -20,11 +20,11 @@
     </nav>
 
     <main>
-      <?php if($posts) : ?>
-      <?php foreach ($posts as $post): ?>
-          <?= $post;?> 
-      <?php endforeach ?>
-      <?php endif; ?>
+      @if($posts)
+      @foreach ($posts as $post)
+          {!! $post !!}
+      @endforeach
+      @endif
     </main>
 
     <footer>
