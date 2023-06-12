@@ -7,7 +7,7 @@
 
   @if($posts)
     @foreach ($posts as $post)
-        {!! $post !!}
+        {!! $post->body !!}
     @endforeach
   @endif
 
