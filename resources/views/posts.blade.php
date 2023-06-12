@@ -2,13 +2,18 @@
 
 @section('banner')
   <h1>My blog</h1>
-@endsection
+@end sction
 @section('content')
 
   @if($posts)
     @foreach ($posts as $post)
-        {!! $post->body !!}
-    @endforeach
+        <article>
+          <h2> {{ $post->title }} </h2>
+        <p> {{ $post->body }} </p>
+        <div class="post-meta">Published on {{$post->created_at}}</div>
+        <a href="#">{{ $post->category->name }}</a>
+        </article>
+      @endforeach
   @endif
 
 @endsection

@@ -21,10 +21,11 @@ Route::get('/', function () {
   ]);
 });
 
-Route::get('/posts/{post}', function ($id) {
+  // This called Route Model Binding ( Default laravel will search for the post with the id , you can change it by {post:slug} , or any thing else )
+Route::get('/posts/{post}', function (Post $post) {
 
   return view('post', [
-    'post' => $post = Post::findOrFail($id),
+    'post' => $post ,
   ]);
 
 });

@@ -1,10 +1,14 @@
 @extends('layout')
 
 @section('banner')
-  <h1>post</h1>
-@endsection
+  <h1>My blog</h1>
+@endsction
 
 @section('content')
-  {!! $post !!}
+      <article>
+       <h2> {{$post->title }} </h2>
+       <p> {{ $post->body }} </p>
+         <div class="post-meta">Published on {{$post->created_at}}</div>
+        </article>
 @endsection
 

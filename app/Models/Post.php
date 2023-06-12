@@ -7,5 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    use HasFactory;
+  use HasFactory;
+
+  protected $guarded = ['id']; // This fields will not accept mass assignment
+  // protected $fillable = ['title', 'body', 'excerpt'];  This fields will accept mass assignment
+
+  public function category()
+  {
+    return $this->belongsTo(Category::class);
+  }
 }
