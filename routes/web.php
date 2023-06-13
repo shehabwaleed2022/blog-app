@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
@@ -16,16 +17,24 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 */
 
 Route::get('/', function () {
-  return view('posts',[
-    'posts' => $posts = Post::all(),
+  return view('posts', [
+    // This solve the (n+1) problem
+    'posts' => $posts = Post::with('category')->get(),
   ]);
 });
 
-  // This called Route Model Binding ( Default laravel will search for the post with the id , you can change it by {post:slug} , or any thing else )
+// This called Route Model Binding ( Default laravel will search for the post with the id , you can change it by {post:slug} , or any thing else )
 Route::get('/posts/{post}', function (Post $post) {
 
   return view('post', [
-    'post' => $post ,
+    'post' => $post,
   ]);
 
+});
+
+
+Route::get('/categories/{category}', function (Category $category) {
+  return view('posts', [
+    'posts' => $category->posts,
+  ]);
 });
