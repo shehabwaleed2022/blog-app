@@ -13,6 +13,7 @@ return new class extends Migration {
     Schema::create('posts', function (Blueprint $table) {
       $table->id();
       $table->foreignId('category_id');
+      $table->foreignId('user_id');
       $table->text('title');
       $table->text('excerpt');
       $table->text('body');
@@ -28,4 +29,6 @@ return new class extends Migration {
   {
     Schema::dropIfExists('posts');
   }
+
+  
 };

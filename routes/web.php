@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
@@ -19,7 +20,7 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 Route::get('/', function () {
   return view('posts', [
     // This solve the (n+1) problem
-    'posts' => $posts = Post::with('category')->get(),
+    'posts' => $posts = Post::latest('published_at')->get(),
   ]);
 });
 
@@ -32,9 +33,16 @@ Route::get('/posts/{post}', function (Post $post) {
 
 });
 
-
-Route::get('/categories/{category}', function (Category $category) {
+Route::get('/authors/{author:username}', function (User $author) {
   return view('posts', [
-    'posts' => $category->posts,
+    'posts' => $author->posts,
+  ]);
+
+});
+
+
+Route::get('/categories/{category:name}', function (Category $category) {
+  return view('posts', [
+    'posts' => $category->posts,  
   ]);
 });
