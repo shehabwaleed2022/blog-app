@@ -19,23 +19,22 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 Route::get('/', function () {
   return view('posts', [
-    // This solve the (n+1) problem
     'posts' => $posts = Post::latest('published_at')->get(),
-  ]);
+    'categories' => Category::all()
+]);
 });
 
 // This called Route Model Binding ( Default laravel will search for the post with the id , you can change it by {post:slug} , or any thing else )
 Route::get('/posts/{post}', function (Post $post) {
-
   return view('post', [
     'post' => $post,
   ]);
-
 });
 
 Route::get('/authors/{author:username}', function (User $author) {
   return view('posts', [
     'posts' => $author->posts,
+
   ]);
 
 });
@@ -43,6 +42,6 @@ Route::get('/authors/{author:username}', function (User $author) {
 
 Route::get('/categories/{category:name}', function (Category $category) {
   return view('posts', [
-    'posts' => $category->posts,  
+    'posts' => $category->posts,
   ]);
 });
