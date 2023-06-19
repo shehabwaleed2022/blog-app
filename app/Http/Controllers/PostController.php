@@ -12,15 +12,14 @@ class PostController extends Controller
   //
   public function index()
   {
-    return view('posts', [
-      'posts' => Post::latest()->filter(request(['search']))->get(),
-      'categories' => Category::all()
+    return view('posts.index', [
+      'posts' => Post::latest()->filter(request(['search', 'category']))->get(),
     ]);
   }
 
   public function show(Post $post)
   {
-    return view('post', [
+    return view('posts.show', [
       'post' => $post,
     ]);
   }
@@ -29,16 +28,7 @@ class PostController extends Controller
   {
     return view('posts', [
       'posts' => $author->posts,
-      'categories' => Category::all()
     ]);
   }
 
-  public function showPostsByCategoryName(Category $category)
-  {
-    return view('posts', [
-      'posts' => $category->posts,
-      'currentCategory' => $category,
-      'categories' => Category::all()
-    ]);
-  }
 }

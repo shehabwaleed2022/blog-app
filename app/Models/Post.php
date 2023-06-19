@@ -26,12 +26,26 @@ class Post extends Model
   }
 
   public function scopeFilter($query, array $filters)
-  { // Post::query()->filter()
+  { // Post::query()->filter([ ])
 
-    $query->when($filters['search'] ?? false, function ($query , $search) {
+    $query->when($filters['search'] ?? false, function ($query, $search) {
       $query
-        ->where('title', 'like', '%' . $search. '%')
+        ->where('title', 'like', '%' . $search . '%')
         ->orWhere('body', 'like', '%' . $search . '%');
+    });
+
+    $query->when($filters['category'] ?? false, function ($query, $category) {
+      // The old way
+      // $query
+      //   ->whereExists(
+      //     fn($query) =>
+      //     $query->from('categories')
+      //       ->whereColumn('categories.id', 'posts.category_id')
+      //       ->where('categories.name', $category)
+      //   );
+
+      // The modern way
+      $query->whereHas('category', fn($query) => $query->where('name', $category));
     });
   }
 }
