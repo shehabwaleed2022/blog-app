@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -17,34 +18,11 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 |
 */
 
-Route::get('/', function () {
-  return view('posts', [
-    'posts' => $posts = Post::latest('published_at')->get(),
-    'categories' => Category::all()
-  ]);
-})->name('home');
+Route::get('/',[PostController::class , 'index'])->name('home');
 
 // This called Route Model Binding ( Default laravel will search for the post with the id , you can change it by {post:slug} , or any thing else )
-Route::get('/posts/{post}', function (Post $post) {
-  return view('post', [
-    'post' => $post,
-  ]);
-});
+Route::get('/posts/{post}', [PostController::class , 'show']);
 
-Route::get('/authors/{author:username}', function (User $author) {
-  return view('posts', [
-    'posts' => $author->posts,
-    'categories' => Category::all()
+Route::get('/authors/{author:username}', [PostController::class ,'showPostsByAuthorUsername']);
 
-  ]);
-
-});
-
-
-Route::get('/categories/{category:name}', function (Category $category) {
-  return view('posts', [
-    'posts' => $category->posts,
-    'currentCategory' => $category,
-    'categories' => Category::all()
-  ]);
-});
+Route::get('/categories/{category:name}', [PostController::class , 'showPostsByCategoryName'])->name('category');
