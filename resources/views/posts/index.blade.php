@@ -44,7 +44,7 @@
                           <div class="flex items-center text-sm">
                             <img src="/images/lary-avatar.svg" alt="Lary avatar" />
                             <div class="ml-3">
-                              <a href="/authors/{{ $post->author->username }}">
+                              <a href="/?author={{ $post->author->username }}">
                                 <h5 class="font-bold">{{ $post->author->name }}</h5>
                               </a>
                             </div>
@@ -58,10 +58,11 @@
                     </div>
         </article>
         @endforeach
-    @else
-      <p class="text-center">No posts now , come back later. </p>
-    @endif
-    </div>
+        @else
+        <p class="text-center">No posts now , come back later. </p>
+        @endif
+      </div>
+      {{$posts->links()}}
 
     <div class="lg:grid lg:grid-cols-6">
         <x-post-card />

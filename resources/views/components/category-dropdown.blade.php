@@ -10,9 +10,9 @@
             </button>
 
               <div x-show="show" class="py-2 absolute bg-gray-100 w-full mt-2 rounded-xl z-50 overflow-auto max-h-52" style="display:none;">
-                <a href="/" class="block text-left px-3 text-sm leading-5 hover:bg-blue-300 focus:bg-blue-300 hover:text-white focus:text-white {{request()->routeIs('home')? 'bg-blue-500 text-white' : '' }}">All</a>
+                <a href="/?{{ http_build_query(request()->except('category' , 'page')) }}" class="block text-left px-3 text-sm leading-5 hover:bg-blue-300 focus:bg-blue-300 hover:text-white focus:text-white {{request()->routeIs('home')? 'bg-blue-500 text-white' : '' }}">All</a>
               @foreach ($categories as $category)
-                <a href="/?category={{$category->name}}" class="block text-left px-3 text-sm leading-5 hover:bg-blue-300 focus:bg-blue-300 hover:text-white focus:text-white {{ isset($currentCategory) && $currentCategory->is($category) ? 'bg-blue-500 text-white' : '' }}">{{ucwords($category->name)}}</a>
+                <a href="/?category={{$category->name}}&{{ http_build_query(request()->except('category' , 'page')) }}" class="block text-left px-3 text-sm leading-5 hover:bg-blue-300 focus:bg-blue-300 hover:text-white focus:text-white {{ isset($currentCategory) && $currentCategory->is($category) ? 'bg-blue-500 text-white' : '' }}">{{ucwords($category->name)}}</a>
               @endforeach
               </div>
 

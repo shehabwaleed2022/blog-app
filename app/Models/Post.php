@@ -29,23 +29,18 @@ class Post extends Model
   { // Post::query()->filter([ ])
 
     $query->when($filters['search'] ?? false, function ($query, $search) {
-      $query
-        ->where('title', 'like', '%' . $search . '%')
-        ->orWhere('body', 'like', '%' . $search . '%');
+      $query->where(fn($query) =>
+        $query->where('title', 'like', '%' . $search . '%')
+          ->orWhere('body', 'like', '%' . $search . '%'));
     });
 
     $query->when($filters['category'] ?? false, function ($query, $category) {
-      // The old way
-      // $query
-      //   ->whereExists(
-      //     fn($query) =>
-      //     $query->from('categories')
-      //       ->whereColumn('categories.id', 'posts.category_id')
-      //       ->where('categories.name', $category)
-      //   );
-
-      // The modern way
       $query->whereHas('category', fn($query) => $query->where('name', $category));
     });
+
+    $query->when($filters['author'] ?? false, function ($query, $author) {
+      $query->whereHas('author', fn($query) => $query->where('username', $author));
+    });
+
   }
 }
