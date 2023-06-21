@@ -17,11 +17,7 @@ class User extends Authenticatable
    *
    * @var array<int, string>
    */
-  protected $fillable = [
-    'name',
-    'email',
-    'password',
-  ];
+  protected $guarded = [];
 
   /**
    * The attributes that should be hidden for serialization.
@@ -41,6 +37,11 @@ class User extends Authenticatable
   protected $casts = [
     'email_verified_at' => 'datetime',
   ];
+
+  // This called mutator , and it encrypt the password automaticlly , the name should be like : setNameAttribute , setPasswordAttrobute and so on
+  public function setPasswordAttribute($password){
+    $this->attributes['password'] = bcrypt($password);
+  } 
 
   public function posts()
   {

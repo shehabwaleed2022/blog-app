@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout :pageTitle="$pageTitle">
 
         @include ('posts._header')
 
