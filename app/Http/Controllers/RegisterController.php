@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class RegisterController extends Controller
 {
@@ -18,14 +19,19 @@ class RegisterController extends Controller
     // Validation the inputs :
     $attributes = request()->validate([
       'name' => ['required' , 'max:255'], 
-      'username' => ['required' , 'max:25'],
-      'email' => ['required' , 'email' , 'max:255'], 
+      'username' => ['required' ,'min:3' , 'max:25' , Rule::unique('users' , 'username') ],
+      'email' => ['required' , 'email:filter' , 'max:255' , Rule::unique('users', 'email') ], 
       'password' => ['required' , 'min:7' , 'max:255']
     ]);
 
     // $attributes['password'] = bcrypt($attributes['password']); 
-    User::create($attributes);
+    $currentUser = User::create($attributes);
 
-    return redirect('/');
+    // log the user in 
+    auth()->login($currentUser);
+
+    return redirect('/')->with('success', 'Your account has been created successfully.');
+    // With method Flashes a piece of data to the session.
+    // This message will stil in the session for one page and then it disappear
   }
 }
