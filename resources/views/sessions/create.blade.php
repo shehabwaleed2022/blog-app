@@ -23,6 +23,9 @@
         @enderror
         <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded mt-4 focus:outline-none">Login</button>
       </form>
+      <h3 class="text-base font-bold mb-3 mt-3">Does not have an account?
+        <a href="/register" class="text-blue-500 underline">Create one now!</a>
+      </h3>
     </div>
   </div>
 

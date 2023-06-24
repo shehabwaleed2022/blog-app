@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Post extends Model
 {
   use HasFactory;
 
   // To solve (n+1) problem
-  protected $with = ['author', 'category'];
+  protected $with = ['author', 'category','comments'];
 
   protected $guarded = ['id']; // This fields will not accept mass assignment
   // protected $fillable = ['title', 'body', 'excerpt'];  This fields will accept mass assignment
@@ -42,5 +43,9 @@ class Post extends Model
       $query->whereHas('author', fn($query) => $query->where('username', $author));
     });
 
+  }
+
+  public function comments(){
+    return $this->hasMany(Comment::class);
   }
 }
