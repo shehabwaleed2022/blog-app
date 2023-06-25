@@ -31,4 +31,16 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'mailchimp' =>[
+      'key' => env('MAILCHIMP_KEY'),
+      'prefix' => env('MAILCHIMP_PREFIX'),
+      'lists' =>[
+        'subscribers' => env('MAILCHIMP_LIST_SUBSCRIBERS')
+      ]
+    ],
+
+    'sendgrid' =>[
+      'key' => env('SENDGRID_KEY'),
+    ]
+
 ];
