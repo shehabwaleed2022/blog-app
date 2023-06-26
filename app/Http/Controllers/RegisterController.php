@@ -18,7 +18,8 @@ class RegisterController extends Controller
   {
     // Validation the inputs :
     $attributes = request()->validate([
-      'name' => ['required' , 'max:255'], 
+      'first_name' => ['required' ,'min:3', 'max:25'], 
+      'last_name' => ['required' , 'min:3' ,'max:25'], 
       'username' => ['required' ,'min:3' , 'max:25' , Rule::unique('users' , 'username') ],
       'email' => ['required' , 'email:filter' , 'max:255' , Rule::unique('users', 'email') ], 
       'password' => ['required' , 'min:7' , 'max:255']

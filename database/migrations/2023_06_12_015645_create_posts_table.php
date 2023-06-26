@@ -17,6 +17,7 @@ return new class extends Migration {
       $table->text('title');
       $table->text('excerpt');
       $table->text('body');
+      $table->integer('likes_num')->default(0);
       $table->timestamp('published_at')->nullable();
       $table->timestamps();
     });

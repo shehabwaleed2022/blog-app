@@ -21,8 +21,4 @@
               @else
                 <a href="/login">Log in to leave a comment </a>
               @endauth
-              @if(isset($post->comments))
-                  @foreach($post->comments as $comment)
-                    <x-post-comment :comment="$comment"/>
-                  @endforeach
-                @endif
+              

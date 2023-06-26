@@ -8,8 +8,12 @@
       <form method="POST" action="/register">
           @csrf
         <div class="mb-4">
-          <label for="name" class="block mb-2 text-sm font-medium text-gray-700">Name</label>
-          <input type="text" id="name" name="name" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none" placeholder="Enter your name" value="{{ old('name') }}" required>
+          <label for="first_name" class="block mb-2 text-sm font-medium text-gray-700">First Name</label>
+          <input type="text" id="first_name" name="first_name" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none" placeholder="Enter your first name" value="{{ old('first_name') }}" required>
+        </div>
+        <div class="mb-4">
+          <label for="last_name" class="block mb-2 text-sm font-medium text-gray-700">Last Name</label>
+          <input type="text" id="last_name" name="last_name" class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none" placeholder="Enter your last name" value="{{ old('last_name') }}" required>
         </div>
         @error('name')
           <p class="text-red-500 text-xs mt-1 mb-1">{{ $message }}</p>

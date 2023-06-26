@@ -26,7 +26,7 @@
           <a href="/register" class="text-xs font-bold uppercase">Register</a>
           <a href="/login" class="text-xs font-bold uppercase ml-6">Login</a>
           @else
-          <span  class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}</span>
+          <span  class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->first_name }}</span>
           <form method="POST" action="/logout">
             @csrf
             <button type="submit" class="text-xs font-semibold text-blue-500 ml-6">Logout</button>
