@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\Newsletter;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ServiceProvider;
 use Nette\Utils\Paginator;
@@ -13,7 +14,12 @@ class AppServiceProvider extends ServiceProvider
    */
   public function register(): void
   {
-    //
+    // You can bind your services here in the service container
+    app()->bind('Newsletter', function () {
+      return new Newsletter();
+    });
+
+    
   }
 
   /**

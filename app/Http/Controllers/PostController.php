@@ -16,8 +16,8 @@ class PostController extends Controller
     return view('posts.index', [
       'pageTitle' => 'Home',
       'posts' => Post::latest()
-      ->filter(request(['search', 'category', 'author']))
-      ->paginate(5)->withQueryString()
+        ->filter(request(['search', 'category', 'author']))
+        ->paginate(5)->withQueryString()
     ]);
   }
 
@@ -26,7 +26,14 @@ class PostController extends Controller
     return view('posts.show', [
       'pageTitle' => 'Post',
       'post' => $post,
-      'comments' => Comment::latest()->where('post_id' , 'like' , $post->id)->simplePaginate(5),
+      'comments' => Comment::latest()->where('post_id', 'like', $post->id)->simplePaginate(5),
+    ]);
+  }
+
+  public function create()
+  {
+    return view('posts.create', [
+      'pageTitle' => 'Create Post'
     ]);
   }
 
