@@ -33,8 +33,13 @@ class PostController extends Controller
   public function create()
   {
     return view('posts.create', [
-      'pageTitle' => 'Create Post'
+      'pageTitle' => 'Create Post',
+      'categories' => Category::all()
     ]);
+  }
+
+  public function store(){
+    ddd(request()->all());
   }
 
   // public function showPostsByAuthorUsername(User $author)
