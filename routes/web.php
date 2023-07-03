@@ -13,18 +13,21 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
+// Route::resource('posts' , PostController::class);
+
 Route::controller(PostController::class)->group(function () {
   Route::get('/', 'index')->name('home')->middleware('auth');
-  Route::get('posts/{post}', 'show')->name('posts.show');
-  Route::get('admin/posts/create', 'create')->name('admin.posts.create')->middleware('admin');
-  Route::post('admin/posts/create', 'store')->name('admin.posts.create.store')->middleware('admin');
+  Route::get('posts/{post:slug}', 'show')->name('posts.show');
+  Route::get('post/create', 'create')->name('post.create')->middleware('auth');
+  Route::post('post/create', 'store')->name('post.create.store')->middleware('auth');
 });
-
 
 Route::controller(RegisterController::class)->group(function () {
   Route::get('register', 'create')->name('register.create');
   Route::post('register', 'store')->name('register.store');
 });
+
+Route::resource('register', RegisterController::class)->only(['create', 'store']);
 
 Route::controller(SessionController::class)->group(function () {
   Route::get('login', 'create')->name('login.create')->middleware('guest');
@@ -32,5 +35,8 @@ Route::controller(SessionController::class)->group(function () {
   Route::post('logout', 'destroy')->name('logout')->middleware('auth');
 });
 
+Route::controller(PostCommentsController::class)->group(function () {
+  Route::post('posts/{post}/comments', 'store')->name('posts.comments.store');
+});
+
 Route::post('newsletter', NewsletterController::class)->name('newsletter');
-Route::post('posts/{post}/comments', [PostCommentsController::class, 'store'])->name('posts.comments.store');

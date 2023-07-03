@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\signup;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 
 class RegisterController extends Controller
@@ -27,7 +29,7 @@ class RegisterController extends Controller
 
     // $attributes['password'] = bcrypt($attributes['password']); 
     $currentUser = User::create($attributes);
-
+        
     // log the user in 
     auth()->login($currentUser);
 

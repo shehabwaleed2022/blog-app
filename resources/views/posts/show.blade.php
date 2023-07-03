@@ -11,7 +11,7 @@
                         <img src="/images/lary-avatar.svg" alt="Lary avatar" />
                         <div class="ml-3 text-left">
                           <a href="/?author={{$post->author->username}}">
-                            <h5 class="font-bold">{{$post->author->name}}</h5>
+                            <h5 class="font-bold">{{ $post->author->first_name . ' ' . $post->author->last_name }}</h5>
                           </a>
                         </div>
                     </div>

@@ -23,8 +23,8 @@
 
         <div class="mt-8 md:mt-0 flex items-center justify-center">
           @guest
-          <a href="/register" class="text-xs font-bold uppercase">Register</a>
-          <a href="/login" class="text-xs font-bold uppercase ml-6">Login</a>
+          <a href="{{route('register.create')}}" class="text-xs font-bold uppercase">Register</a>
+          <a href="{{route('login.create')}}" class="text-xs font-bold uppercase ml-6">Login</a>
           @else
           <span  class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->first_name }}</span>
           <form method="POST" action="/logout">

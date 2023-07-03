@@ -5,7 +5,7 @@
   <div class="flex h-screen items-center justify-center">
     <div class="bg-gray-200 bg-opacity-50 p-8 rounded-xl shadow-lg max-w-md w-full mt-4">
       <h2 class="text-2xl mb-4 text-center">Registration</h2>
-      <form method="POST" action="/register">
+      <form method="POST" action="{{route('register.store')}}">
           @csrf
         <div class="mb-4">
           <label for="first_name" class="block mb-2 text-sm font-medium text-gray-700">First Name</label>

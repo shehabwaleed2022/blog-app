@@ -7,6 +7,8 @@ use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Str;
 
 class PostController extends Controller
 {
@@ -38,8 +40,22 @@ class PostController extends Controller
     ]);
   }
 
-  public function store(){
-    ddd(request()->all());
+  public function store()
+  {
+    // Validate the request
+    $attributes = request()->validate([
+      'title' => ['required', 'min:3', 'max:35'],
+      'body' => ['required', 'min:3', 'max:255'],
+      'category_id' => ['required', Rule::exists('categories', 'id')]
+    ]);
+    $attributes['user_id'] = auth()->user()->id;
+    $attributes['slug'] = Str::slug($attributes['title'] .' ' . auth()->user()->username);
+    $attributes['excerpt'] = substr($attributes['body'], 0, 15) . '...';
+    $attributes['published_at'] = now();
+
+    Post::create($attributes);
+
+    return redirect(route('home'))->with('success', 'Post created successfully. ');
   }
 
   // public function showPostsByAuthorUsername(User $author)
