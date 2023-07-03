@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use Spatie\YamlFrontMatter\YamlFrontMatter;
 
-// Route::resource('posts' , PostController::class);
 
 Route::controller(PostController::class)->group(function () {
   Route::get('/', 'index')->name('home')->middleware('auth');

@@ -46,10 +46,13 @@ class PostController extends Controller
     $attributes = request()->validate([
       'title' => ['required', 'min:3', 'max:35'],
       'body' => ['required', 'min:3', 'max:255'],
-      'category_id' => ['required', Rule::exists('categories', 'id')]
+      'category_id' => ['required', Rule::exists('categories', 'id')],
+      'thumbnail' => ['required', 'image']
     ]);
+
+    $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
     $attributes['user_id'] = auth()->user()->id;
-    $attributes['slug'] = Str::slug($attributes['title'] .' ' . auth()->user()->username);
+    $attributes['slug'] = Str::slug($attributes['title'] . ' ' . auth()->user()->username);
     $attributes['excerpt'] = substr($attributes['body'], 0, 15) . '...';
     $attributes['published_at'] = now();
 
@@ -57,12 +60,5 @@ class PostController extends Controller
 
     return redirect(route('home'))->with('success', 'Post created successfully. ');
   }
-
-  // public function showPostsByAuthorUsername(User $author)
-  // {
-  //   return view('posts', [
-  //     'posts' => $author->posts,
-  //   ]);
-  // }
 
 }

@@ -16,6 +16,7 @@ return new class extends Migration {
       $table->foreignId('user_id');
       $table->text('title');
       $table->text('excerpt');
+      $table->string('thumbnail')->nullable();
       $table->text('slug');
       $table->text('body');
       $table->integer('likes_num')->default(0);
