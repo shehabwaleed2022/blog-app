@@ -61,4 +61,41 @@ class PostController extends Controller
     return redirect(route('home'))->with('success', 'Post created successfully. ');
   }
 
+  public function edit(Post $post)
+  {
+    // Check that the user has the premission to edit
+    if ($post->user_id !== auth()->user()->id)
+      abort(403);
+
+    return view('posts.edit', [
+      'pageTitle' => 'Edit a post',
+      'post' => $post,
+      'categories' => Category::all()
+    ]);
+  }
+
+  public function update(Post $post)
+  {
+    // Validate the data
+    $attribures = request()->validate([
+      'title' => ['required', 'min:3', 'max:35'],
+      'body' => ['required', 'min:3', 'max:255'],
+      'category_id' => ['required', Rule::exists('categories', 'id')],
+      'thumbnail' => ['image']
+    ]);
+
+    if (isset($attribures['thumbnail']))
+      $attribures['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
+
+    $post->update($attribures);
+
+    return redirect("/post/{$post->slug}")->with('success', 'Post updated successfully. ');
+  }
+
+  public function destroy(Post $post)
+  {
+    $post->delete();
+    return redirect(route('home'))->with('success', 'Post deleted successfully. ');
+  }
+
 }

@@ -37,6 +37,23 @@
                             Back to Posts
                         </a>
 
+                        @auth
+                            @if ($post->user_id === auth()->user()->id)
+                                <div class="flex items-center">
+                                    <a href="/post/{{ $post->slug }}/edit">
+                                        <button
+                                            class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Edit</button>
+                                    </a>
+                                    <form method="POST" action="/post/{{ $post->id }}" class="ml-2">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded">Delete</button>
+                                    </form>
+                                </div>
+                            @endif
+                        @endauth
+
                         <div class="space-x-2">
                             <x-category-button :category="$post->category" />
                         </div>

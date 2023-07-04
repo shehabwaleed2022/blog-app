@@ -16,14 +16,12 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 Route::controller(PostController::class)->group(function () {
   Route::get('/', 'index')->name('home')->middleware('auth');
-  Route::get('posts/{post:slug}', 'show')->name('posts.show');
+  Route::get('post/{post:slug}', 'show')->name('posts.show');
+  Route::get('post/{post:slug}/edit', 'edit')->name('post.edit')->middleware('auth');
+  Route::patch('post/{post}', 'update')->name('post.update')->middleware('auth');
   Route::get('post/create', 'create')->name('post.create')->middleware('auth');
+  Route::delete('post/{post}', 'destroy')->name('post.destroy')->middleware('auth');
   Route::post('post/create', 'store')->name('post.create.store')->middleware('auth');
-});
-
-Route::controller(RegisterController::class)->group(function () {
-  Route::get('register', 'create')->name('register.create');
-  Route::post('register', 'store')->name('register.store');
 });
 
 Route::resource('register', RegisterController::class)->only(['create', 'store']);
