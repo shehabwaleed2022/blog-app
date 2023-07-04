@@ -1,1 +1,0 @@
-Thank you for signup in our website

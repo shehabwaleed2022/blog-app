@@ -52,7 +52,7 @@ class PostController extends Controller
 
     $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
     $attributes['user_id'] = auth()->user()->id;
-    $attributes['slug'] = Str::slug($attributes['title'] . ' ' . auth()->user()->username);
+    $attributes['slug'] = Str::slug($attributes['title'] . ' ' . Str::uuid());
     $attributes['excerpt'] = substr($attributes['body'], 0, 15) . '...';
     $attributes['published_at'] = now();
 

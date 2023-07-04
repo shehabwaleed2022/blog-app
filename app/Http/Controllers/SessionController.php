@@ -12,7 +12,7 @@ class SessionController extends Controller
   {
     auth()->logout();
 
-    return redirect('/')->with('success', 'Goodbye !');
+    return redirect(route('home'))->with('success', 'Goodbye !');
   }
 
   public function create()
