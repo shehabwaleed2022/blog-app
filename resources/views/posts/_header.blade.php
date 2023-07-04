@@ -21,7 +21,7 @@
             </form>
         </div>
         @auth
-            <a href="{{ route('post.create') }}">
+            <a href="{{ route('posts.create') }}">
                 <button
                     class="lg:ml-4 mt-2 lg:mt-0 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">
                     Create a post

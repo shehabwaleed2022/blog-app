@@ -27,6 +27,6 @@ class PostCommentsController extends Controller
       'user_id' => request()->user()->id
     ]);
 
-    return redirect("/posts/{$post->slug}")->with('success', 'Comment posted successfully. ');
+    return redirect("/post/{$post->slug}")->with('success', 'Comment posted successfully. ');
   }
 }

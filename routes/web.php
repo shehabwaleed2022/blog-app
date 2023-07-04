@@ -19,12 +19,14 @@ Route::controller(PostController::class)->group(function () {
   Route::get('post/{post:slug}', 'show')->name('posts.show');
   Route::get('post/{post:slug}/edit', 'edit')->name('post.edit')->middleware('auth');
   Route::patch('post/{post}', 'update')->name('post.update')->middleware('auth');
-  Route::get('post/create', 'create')->name('post.create')->middleware('auth');
   Route::delete('post/{post}', 'destroy')->name('post.destroy')->middleware('auth');
-  Route::post('post/create', 'store')->name('post.create.store')->middleware('auth');
+  Route::get('posts/create', 'create')->name('posts.create')->middleware('auth');
+  Route::post('posts/create', 'store')->name('posts.create.store')->middleware('auth');
 });
 
-Route::resource('register', RegisterController::class)->only(['create', 'store']);
+Route::get('register', [RegisterController::class, 'create'])->name('register.create');
+Route::post('register', [RegisterController::class, 'store'])->name('register.store');
+// Route::resource('register', RegisterController::class)->only(['create', 'store']);
 
 Route::controller(SessionController::class)->group(function () {
   Route::get('login', 'create')->name('login.create')->middleware('guest');

@@ -9,7 +9,7 @@
 
         <div class="mt-6">
             <textarea name="body" class="w-full text-sm focus:outline-none focus:ring" rows="5"
-                placeholder="Say somthing {{ auth()->user()->name }} !" required>{{ old('body') }}</textarea>
+                placeholder="Say somthing {{ auth()->user()->first_name }} !" required>{{ old('body') }}</textarea>
         </div>
         @error('body')
             <p class="text-xs text-red-500">{{ $message }}</p>
