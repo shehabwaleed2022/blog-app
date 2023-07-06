@@ -11,6 +11,7 @@ class AdminController extends Controller
   public function index()
   {
     $this->authorize('admin');
-    return 'Admin Dashboard';
+
+    return view('admin.index');
   }
 }

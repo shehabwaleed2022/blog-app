@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
@@ -25,13 +26,15 @@ Route::controller(PostController::class)->group(function () {
   Route::delete('post/{post}', 'destroy')->name('post.destroy')->middleware('auth');
 });
 
+
 Route::controller(AdminController::class)->group(function () {
-  Route::get('/admin', 'index')->middleware('can:admin');
+  Route::get('admin', 'index')->name('admin.index')->middleware('can:admin');
 });
+
+Route::resource('admin/users', AdminUsersController::class)->except('show', 'create')->middleware('can:admin');
 
 Route::get('register', [RegisterController::class, 'create'])->name('register.create');
 Route::post('register', [RegisterController::class, 'store'])->name('register.store');
-// Route::resource('register', RegisterController::class)->only(['create', 'store']);
 
 Route::controller(SessionController::class)->group(function () {
   Route::get('login', 'create')->name('login.create')->middleware('guest');
