@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
@@ -19,9 +20,13 @@ Route::controller(PostController::class)->group(function () {
   Route::get('post/{post:slug}', 'show')->name('posts.show');
   Route::get('post/{post:slug}/edit', 'edit')->name('post.edit')->middleware('auth');
   Route::patch('post/{post}', 'update')->name('post.update')->middleware('auth');
-  Route::delete('post/{post}', 'destroy')->name('post.destroy')->middleware('auth');
   Route::get('posts/create', 'create')->name('posts.create')->middleware('auth');
   Route::post('posts/create', 'store')->name('posts.create.store')->middleware('auth');
+  Route::delete('post/{post}', 'destroy')->name('post.destroy')->middleware('auth');
+});
+
+Route::controller(AdminController::class)->group(function () {
+  Route::get('/admin', 'index')->middleware('can:admin');
 });
 
 Route::get('register', [RegisterController::class, 'create'])->name('register.create');

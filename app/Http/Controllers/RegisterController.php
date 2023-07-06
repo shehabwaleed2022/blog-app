@@ -26,16 +26,23 @@ class RegisterController extends Controller
       'last_name' => ['required', 'min:3', 'max:25'],
       'username' => ['required', 'min:3', 'max:25', Rule::unique('users', 'username')],
       'email' => ['required', 'email:filter', 'max:255', Rule::unique('users', 'email')],
+      'photo' => ['image'],
       'password' => ['required', 'min:7', 'max:255'],
       'repeated-password' => ['required', 'min:7', 'max:255']
     ]);
 
     if ($attributes['password'] !== $attributes['repeated-password']) {
-      return Redirect::back()->withErrors(['password' => 'Please make sure that the password matches. '])->withInput(request()->except('repeated-password'));
+      return Redirect::back()->withErrors(['repeated-password' => 'Please make sure that the password matches. '])->withInput(request()->except('repeated-password'));
+    }
+
+    if ($attributes['photo'] ?? false) {
+      $attributes['photo'] = request()->file('photo')->store('userPhotos');
+    } else {
+      $attributes['photo'] = 'userPhotos/default.png';
     }
 
     // $attributes['password'] = bcrypt($attributes['password']);
-    unset($attributes['repeated-password']); 
+    unset($attributes['repeated-password']);
     $currentUser = User::create($attributes);
 
     // log the user in 

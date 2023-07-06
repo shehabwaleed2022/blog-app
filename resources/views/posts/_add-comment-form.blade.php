@@ -3,7 +3,7 @@
         @csrf
 
         <header class="flex items-center">
-            <img src="https://i.pravatar.cc/100?u={{ auth()->id() }}" width="40" height="40" class="rounded-full">
+            <img src="{{ asset('storage/' . auth()->user()->photo )}}" width="40" height="40" class="rounded-full">
             <h2 class="ml-4">Leave a comment !</h2>
         </header>
 

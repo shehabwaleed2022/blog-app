@@ -10,7 +10,7 @@
                     </p>
 
                     <div class="flex items-center lg:justify-center text-sm mt-4">
-                        <img class="w-16 h-16 rounded-full" src="https://i.pravatar.cc/100?u={{ $post->user_id }}" />
+                        <img class="w-16 h-16 rounded-full" src="{{ asset('storage/' . $post->author->photo) }}" />
                         <div class="ml-3 text-left">
                             <a href="/?author={{ $post->author->username }}">
                                 <h5 class="font-bold">{{ $post->author->first_name . ' ' . $post->author->last_name }}
@@ -38,11 +38,10 @@
                         </a>
 
                         @auth
-                            @if ($post->user_id === auth()->user()->id)
+                            @ownPost($post)
                                 <div class="flex items-center">
                                     <a href="/post/{{ $post->slug }}/edit">
-                                        <button
-                                            class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Edit</button>
+                                        <button class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Edit</button>
                                     </a>
                                     <form method="POST" action="/post/{{ $post->id }}" class="ml-2">
                                         @csrf
@@ -51,7 +50,7 @@
                                             class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded">Delete</button>
                                     </form>
                                 </div>
-                            @endif
+                            @endownPost
                         @endauth
 
                         <div class="space-x-2">

@@ -29,10 +29,25 @@
                     {{ $post->excerpt }}
                 </p>
             </div>
+            <div class="mt-4 flex items-center">
+                <div class="mr-2">
+                    <a href=""> <img src="{{ asset('images/love.png') }}" class="h-6 w-6"></a>
+                </div>
+                <div>
+                    <p class="text-gray-600 text-sm">{{ $post->likes_num }}</p>
+                </div>
+
+                <div class="mr-2 ml-4">
+                    <img src="{{ asset('images/comment.png') }}" class="h-6 w-6">
+                </div>
+                <div>
+                    <p class="text-gray-600 text-sm">{{ count($post->comments) }}</p>
+                </div>
+            </div>
 
             <footer class="flex justify-between items-center mt-8">
                 <div class="flex items-center text-sm">
-                    <img class="w-16 h-16 rounded-full" src="https://i.pravatar.cc/100?u={{ $post->user_id }}" />
+                    <img class="w-16 h-16 rounded-full" src="{{ asset('storage/' . $post->author->photo) }}" />
                     <div class="ml-3">
                         <a href="/?author={{ $post->author->username }}">
                             <h5 class="font-bold">{{ $post->author->first_name . ' ' . $post->author->last_name }}</h5>

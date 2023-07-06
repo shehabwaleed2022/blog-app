@@ -13,6 +13,7 @@ use Str;
 class PostController extends Controller
 {
   //
+
   public function index()
   {
     return view('posts.index', [
@@ -23,6 +24,7 @@ class PostController extends Controller
     ]);
   }
 
+
   public function show(Post $post)
   {
     return view('posts.show', [
@@ -31,6 +33,7 @@ class PostController extends Controller
       'comments' => Comment::latest()->where('post_id', 'like', $post->id)->simplePaginate(5),
     ]);
   }
+
 
   public function create()
   {
@@ -43,12 +46,7 @@ class PostController extends Controller
   public function store()
   {
     // Validate the request
-    $attributes = request()->validate([
-      'title' => ['required', 'min:3', 'max:35'],
-      'body' => ['required', 'min:3', 'max:255'],
-      'category_id' => ['required', Rule::exists('categories', 'id')],
-      'thumbnail' => ['required', 'image']
-    ]);
+    $attributes = $this->validatePost();
 
     $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
     $attributes['user_id'] = auth()->user()->id;
@@ -61,11 +59,11 @@ class PostController extends Controller
     return redirect(route('home'))->with('success', 'Post created successfully. ');
   }
 
+
   public function edit(Post $post)
   {
     // Check that the user has the premission to edit
-    if ($post->user_id !== auth()->user()->id)
-      abort(403);
+    $this->authorize('ownPost', $post);
 
     return view('posts.edit', [
       'pageTitle' => 'Edit a post',
@@ -74,17 +72,14 @@ class PostController extends Controller
     ]);
   }
 
+
   public function update(Post $post)
   {
+    $this->authorize('ownPost', $post);
     // Validate the data
-    $attribures = request()->validate([
-      'title' => ['required', 'min:3', 'max:35'],
-      'body' => ['required', 'min:3', 'max:255'],
-      'category_id' => ['required', Rule::exists('categories', 'id')],
-      'thumbnail' => ['image']
-    ]);
+    $attribures = $this->validatePost($post);
 
-    if (isset($attribures['thumbnail']))
+    if ($attribures['thumbnail'] ?? false)
       $attribures['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
 
     $post->update($attribures);
@@ -92,10 +87,24 @@ class PostController extends Controller
     return redirect("/post/{$post->slug}")->with('success', 'Post updated successfully. ');
   }
 
+
   public function destroy(Post $post)
   {
     $post->delete();
     return redirect(route('home'))->with('success', 'Post deleted successfully. ');
+  }
+
+
+  protected function validatePost(?Post $post = null)
+  {
+    $post ??= new Post();
+
+    return request()->validate([
+      'title' => ['required', 'min:3', 'max:35'],
+      'body' => ['required', 'min:3', 'max:255'],
+      'category_id' => ['required', Rule::exists('categories', 'id')],
+      'thumbnail' => $post->exists ? ['image'] : ['required', 'image'],
+    ]);
   }
 
 }
