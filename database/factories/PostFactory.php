@@ -20,7 +20,7 @@ class PostFactory extends Factory
   {
     return [
       //
-      'user_id' => User::factory(),
+      'user_id' => User::factory()->create(['photo' => 'userPhotos/default.png']),
       'category_id' => Category::factory(),
       'title' => $this->faker->sentence(),
       'slug' => $this->faker->sentence(),
