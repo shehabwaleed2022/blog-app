@@ -7,13 +7,27 @@
             @csrf
             @method('PATCH')
 
-            <x-form.input title="Photo" name="photo" value="{{$user->photo}}" type="file" />
+            <x-form.input title="Photo" name="photo" value="{{ $user->photo }}" type="file" />
             <x-form.input title="First Name" name="first_name" value="{{ $user->first_name }}" type="string" />
             <x-form.input title="Last Name" name="last_name" value="{{ $user->last_name }}" type="string" />
             <x-form.input title="Username" name="username" value="{{ $user->username }}" type="string" />
             <x-form.input title="Email" name="email" value="{{ $user->email }}" type="email" />
             <x-form.input title="Password" name="password" value="*******" type="password" />
 
+            <label class="block mb-2 text-sm font-medium text-gray-700">Status</label>
+            <div class="flex flex-row gap-5 mt-4 mb-8">
+                <div class="flex items-center">
+                    <input type="radio" id="option1" name="status" value="active" class="mr-2"
+                        {{ $user->is_active ? 'checked' : '' }}>
+                    <label for="option1">Active</label>
+                </div>
+
+                <div class="flex items-center">
+                    <input type="radio" id="option2" name="status" value="inactive" class="mr-2"
+                        {{ !$user->is_active ? 'checked' : '' }}>
+                    <label for="option2">Inactive</label>
+                </div>
+            </div>
 
 
             <div class="flex items-center justify-between">

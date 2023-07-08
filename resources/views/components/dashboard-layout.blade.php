@@ -8,6 +8,7 @@
     <title>Admin</title>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="{{ asset('css/admin-dashboard.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.12.2/cdn.js"
         integrity="sha512-O+ameuymZr7auqNl/HvUtOOzIMFEB9wwMLAYe3k/clA44a2oGtV+6Xh7+lFiztz0gBN+t27z23xxQQLG67vv9w=="
@@ -16,9 +17,13 @@
 
 <body>
 
-
     <div class="min-h-full">
         <nav class="bg-gray-800">
+
+
+            {{-- <div class="msg">
+            <p>This is a message and this is a test message</p>
+          </div> --}}
             <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center justify-between">
                     <div class="flex items-center">
@@ -59,12 +64,11 @@
                                         id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                         <span class="sr-only">Open user menu</span>
                                         <img class="h-8 w-8 rounded-full"
-                                            src="{{ asset('storage/' . auth()->user()->photo) }}"
-                                            alt="">
+                                            src="{{ asset('storage/' . auth()->user()->photo) }}" alt="">
                                     </button>
                                 </div>
 
-                                
+
                             </div>
                         </div>
                     </div>
@@ -95,7 +99,7 @@
                 <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                     <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                     <a href="#" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium"
-                        aria-current="page">{{$title}}</a>
+                        aria-current="page">{{ $title }}</a>
                     <a href="#"
                         class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Team</a>
                     <a href="#"
@@ -142,7 +146,7 @@
 
         <header class="bg-white shadow">
             <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-                <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{$title}}</h1>
+                <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ $title }}</h1>
             </div>
         </header>
         <main>
@@ -151,6 +155,8 @@
             </div>
         </main>
     </div>
+    
+    <x-flash/>
 </body>
 
 </html>

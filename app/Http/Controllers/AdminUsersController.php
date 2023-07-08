@@ -13,7 +13,7 @@ class AdminUsersController extends Controller
   public function index()
   {
     return view('admin.users.index', [
-      'users' => User::all()->except(auth()->user()->id),
+      'users' => User::where('id', '!=', auth()->user()->id)->paginate(10)
     ]);
   }
 
@@ -22,7 +22,7 @@ class AdminUsersController extends Controller
   {
     $user->delete();
 
-    return Redirect::back();
+    return Redirect::back()->with('success', 'User deleted successfully.');
   }
 
 
@@ -36,7 +36,7 @@ class AdminUsersController extends Controller
 
   public function update(User $user)
   {
-    // Validation the data
+
     $attributes = request()->validate([
       'first_name' => ['min:3', 'max:25'],
       'last_name' => ['min:3', 'max:25'],
@@ -44,17 +44,21 @@ class AdminUsersController extends Controller
       'email' => ['email:filter', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
       'photo' => ['image'],
       'password' => ['min:7', 'max:255'],
-      'repeated-password' => ['min:7', 'max:255']
+      'repeated-password' => ['min:7', 'max:255'],
+      'status' => ['required']
     ]);
 
     if ($attributes['photo'] ?? false) {
       $attributes['photo'] = request()->file('photo')->store();
     }
 
-    // update the user data
+    $attributes['is_active'] = ($attributes['status'] == 'active') ? 1 : 0;
+    unset($attributes['status']);
+
+
     $user->update($attributes);
 
     // redirect
-    return redirect(route('users.index'));
+    return redirect(route('users.index'))->with('success' , 'User updated successfully.');
   }
 }

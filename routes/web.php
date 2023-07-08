@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminPostsController;
 use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NewsletterController;
@@ -32,6 +33,7 @@ Route::controller(AdminController::class)->group(function () {
 });
 
 Route::resource('admin/users', AdminUsersController::class)->except('show', 'create')->middleware('can:admin');
+Route::resource('admin/posts', AdminPostsController::class)->middleware('can:admin');
 
 Route::get('register', [RegisterController::class, 'create'])->name('register.create');
 Route::post('register', [RegisterController::class, 'store'])->name('register.store');
