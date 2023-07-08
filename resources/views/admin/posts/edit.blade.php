@@ -17,29 +17,28 @@
 
                 <select name="category_id" id="category" class="mb-4">
                     @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ $post->category->id == $category->id ? 'selected' : '' }}>
+                        <option value="{{ $category->id }}"
+                            {{ $post->category->id == $category->id ? 'selected' : '' }}>
                             {{ $category->name }}
                         </option>
                     @endforeach
 
                 </select>
             </div>
-
-            {{-- <label class="block mb-2 text-sm font-medium text-gray-700">Status</label>
+            <label class="block mb-2 text-sm font-medium text-gray-700">Status</label>
             <div class="flex flex-row gap-5 mt-4 mb-8">
                 <div class="flex items-center">
                     <input type="radio" id="option1" name="status" value="active" class="mr-2"
-                        {{ $user->is_active ? 'checked' : '' }}>
+                        {{ $post->is_active ? 'checked' : '' }}>
                     <label for="option1">Active</label>
                 </div>
 
                 <div class="flex items-center">
                     <input type="radio" id="option2" name="status" value="inactive" class="mr-2"
-                        {{ !$user->is_active ? 'checked' : '' }}>
+                        {{ ! $post->is_active ? 'checked' : '' }}>
                     <label for="option2">Inactive</label>
                 </div>
-            </div> --}}
-
+            </div>
 
             <div class="flex items-center justify-between">
                 <button

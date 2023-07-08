@@ -26,6 +26,7 @@
             </div>
 
             <div class="mt-8 md:mt-0 flex items-center justify-center">
+
                 @guest
                     <a href="{{ route('register.create') }}" class="text-xs font-bold uppercase">Register</a>
                     <a href="{{ route('login.create') }}" class="text-xs font-bold uppercase ml-6">Login</a>
@@ -36,6 +37,9 @@
                         <button type="submit" class="text-xs font-semibold text-blue-500 ml-6">Logout</button>
                     </form>
                 @endguest
+                @can('admin')
+                    <a href="{{ route('admin.index') }}" class="text-xs font-semibold text-blue-500 ml-6">Dashboard</a>
+                @endcan
                 <a href="#newsletter"
                     class="bg-blue-500 ml-5 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                     Subscribe for Updates

@@ -16,6 +16,7 @@ return new class extends Migration {
       $table->foreignId('user_id')->constrained()->onDelete('cascade');
       $table->text('title');
       $table->text('excerpt');
+      $table->boolean('is_active')->default(1);
       $table->string('thumbnail')->nullable();
       $table->text('slug');
       $table->text('body');
@@ -33,5 +34,5 @@ return new class extends Migration {
     Schema::dropIfExists('posts');
   }
 
-  
+
 };

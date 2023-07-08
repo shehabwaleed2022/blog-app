@@ -14,7 +14,7 @@ class AdminPostsController extends Controller
   public function index()
   {
     return view('admin.posts.index', [
-      'posts' => Post::latest()->get(),
+      'posts' => Post::latest()->paginate(10),
     ]);
   }
 
@@ -33,6 +33,8 @@ class AdminPostsController extends Controller
       'body' => ['required', 'min:3', 'max:255'],
       'category_id' => ['required', Rule::exists('categories', 'id')],
     ]);
+
+    $attriutes['is_active'] = request('status') == 'active' ? 1 : 0;
 
 
     $post->update($attriutes);

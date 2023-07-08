@@ -6,11 +6,12 @@
                     <table class="min-w-full text-left text-sm font-light">
                         <thead class="border-b font-medium dark:border-neutral-500">
                             <tr>
-                                <th scope="col" class="px-6 py-4 h-8 w-8">Id</th>
-                                <th scope="col" class="px-6 py-4 h-8 w-8">Title</th>
-                                <th scope="col" class="px-6 py-4 h-8 w-8">Author</th>
-                                <th scope="col" class="px-6 py-4 h-8 w-8">Category</th>
+                                <th scope="col" class="px-6 py-4 h-8 w-4">Id</th>
+                                <th scope="col" class="px-6 py-4 h-8 w-4">Title</th>
+                                <th scope="col" class="px-6 py-4 h-8 w-4">Author</th>
+                                <th scope="col" class="px-6 py-4 h-8 w-4">Category</th>
                                 <th scope="col" class="px-6 py-4">Content</th>
+                                <th scope="col" class="px-6 py-4">Status</th>
                                 <th scope="col" class="px-6 py-4">Created at</th>
                             </tr>
                         </thead>
@@ -23,6 +24,10 @@
                                         {{ $post->author->first_name . ' ' . $post->author->last_name }}</td>
                                     <td class="whitespace-nowrap px-6 py-4">{{ $post->category->name }}</td>
                                     <td class="whitespace-wrap px-6 py-4">{{ $post->body }}</td>
+                                    <td
+                                        class="whitespace-nowrap {{ $post->is_active ? 'text-green-600' : 'text-red-700' }} px-6 py-4">
+                                        {{ $post->is_active ? 'Active' : 'Inactive' }}
+                                    </td>
                                     <td class="whitespace-nowrap px-6 py-4">{{ $post->created_at->format('Y-m-d') }}
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-4">
@@ -46,8 +51,8 @@
                     </table>
                 </div>
             </div>
+            {{ $posts->links() }}
 
         </div>
-
     </div>
 </x-dashboard-layout>

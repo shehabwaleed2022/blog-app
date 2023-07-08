@@ -12,6 +12,7 @@
                                 <th scope="col" class="px-6 py-4">Last name</th>
                                 <th scope="col" class="px-6 py-4">Username</th>
                                 <th scope="col" class="px-6 py-4">Email</th>
+                                <th scope="col" class="px-6 py-4">Num of posts</th>
                                 <th scope="col" class="px-6 py-4">Created at</th>
                                 <th scope="col" class="px-6 py-4">Status</th>
                             </tr>
@@ -26,6 +27,7 @@
                                     <td class="whitespace-nowrap px-6 py-4">{{ $user->last_name }}</td>
                                     <td class="whitespace-nowrap px-6 py-4">{{ $user->username }}</td>
                                     <td class="whitespace-nowrap px-6 py-4">{{ $user->email }}</td>
+                                    <td class="whitespace-nowrap px-6 py-4">{{ count($user->posts) }}</td>
                                     <td class="whitespace-nowrap px-6 py-4">{{ $user->created_at->format('Y-m-d') }}
                                     </td>
                                     <td class="whitespace-nowrap {{$user->is_active ? 'text-green-600' : 'text-red-700'}} px-6 py-4">{{ $user->is_active ? 'Active' : 'Inactive' }}
@@ -55,6 +57,6 @@
             </div>
             {{ $users->links() }}
         </div>
-        
+
     </div>
 </x-dashboard-layout>

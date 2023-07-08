@@ -9,8 +9,11 @@ class Category extends Model
 {
   use HasFactory;
 
+  protected $guarded = [];
+
   // The query will be SELECT * FROM POSTS WHERE category_id = id
-  public function posts(){
+  public function posts()
+  {
     return $this->hasMany(Post::class);
   }
 }
