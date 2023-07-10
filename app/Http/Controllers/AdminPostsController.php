@@ -14,7 +14,7 @@ class AdminPostsController extends Controller
     public function index()
     {
         return view('admin.posts.index', [
-            'posts' => Post::latest()->paginate(10),
+            'posts' => Post::latest()->without('comments', 'likes')->paginate(10),
         ]);
     }
 

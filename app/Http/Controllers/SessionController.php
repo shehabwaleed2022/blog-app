@@ -29,7 +29,6 @@ class SessionController extends Controller
             'password' => ['required']
         ]);
 
-        // ! This is an error here , when credentials failed
         // Auth success
         if (User::where('email', $attributes['email'])->exists()) {
 

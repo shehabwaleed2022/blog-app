@@ -27,7 +27,7 @@
                                     <td class="whitespace-nowrap px-6 py-4">{{ $user->last_name }}</td>
                                     <td class="whitespace-nowrap px-6 py-4">{{ $user->username }}</td>
                                     <td class="whitespace-nowrap px-6 py-4">{{ $user->email }}</td>
-                                    <td class="whitespace-nowrap px-6 py-4">{{ count($user->posts) }}</td>
+                                    <td class="whitespace-nowrap px-6 py-4">{{ $user->posts_count }}</td>
                                     <td class="whitespace-nowrap px-6 py-4">{{ $user->created_at->format('Y-m-d') }}
                                     </td>
                                     <td

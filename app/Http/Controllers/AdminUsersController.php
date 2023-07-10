@@ -13,9 +13,11 @@ class AdminUsersController extends Controller
     public function index()
     {
         return view('admin.users.index', [
-            'users' => User::with('posts')->where('id', '!=', auth()->user()->id)->paginate(10)
+            'users' => User::with(['posts' => function ($query) {
+                $query->select('user_id'); }])->withCount('posts')->where('id', '!=', auth()->user()->id)->paginate(10)
         ]);
     }
+
 
 
     public function destroy(User $user)
