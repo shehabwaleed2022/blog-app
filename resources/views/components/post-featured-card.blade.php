@@ -31,7 +31,21 @@
             </div>
             <div class="mt-4 flex items-center">
                 <div class="mr-2">
-                    <a href=""> <img src="{{ asset('images/love.png') }}" class="h-6 w-6"></a>
+
+                    <form method="POST" action="/like/{{ $post->id }}">
+                        @csrf
+                        @php
+                            $isLiked = false;
+                            foreach ($post->likes as $like) {
+                                if ($like->user_id == auth()->user()->id) {
+                                    $isLiked = true;
+                                }
+                            }
+                        @endphp
+                        <button type="submit"><img src="{{ asset('images/' . ($isLiked ? 'loved.png' : 'love.png')) }}"
+                                class="h-6 w-6"></button>
+                    </form>
+
                 </div>
                 <div>
                     <p class="text-gray-600 text-sm">{{ $post->likes_num }}</p>

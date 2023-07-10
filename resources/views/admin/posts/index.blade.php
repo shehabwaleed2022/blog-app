@@ -4,26 +4,28 @@
             <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                 <div class="overflow-hidden">
                     <table class="min-w-full text-left text-sm font-light">
-                        <thead class="border-b font-medium dark:border-neutral-500">
+                        <thead class="border-b font-medium dark:border-neutral-500 text-center">
                             <tr>
                                 <th scope="col" class="px-6 py-4 h-8 w-4">Id</th>
                                 <th scope="col" class="px-6 py-4 h-8 w-4">Title</th>
                                 <th scope="col" class="px-6 py-4 h-8 w-4">Author</th>
                                 <th scope="col" class="px-6 py-4 h-8 w-4">Category</th>
                                 <th scope="col" class="px-6 py-4">Content</th>
+                                <th scope="col" class="px-6 py-4">number of likes</th>
                                 <th scope="col" class="px-6 py-4">Status</th>
                                 <th scope="col" class="px-6 py-4">Created at</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($posts as $post)
-                                <tr class="border-b dark:border-neutral-500">
+                                <tr class="border-b dark:border-neutral-500 text-center">
                                     <td class="whitespace-nowrap px-6 py-4">{{ $post->id }}</td>
                                     <td class="whitespace-nowrap px-6 py-4">{{ $post->title }}</td>
                                     <td class="whitespace-nowrap px-6 py-4">
                                         {{ $post->author->first_name . ' ' . $post->author->last_name }}</td>
                                     <td class="whitespace-nowrap px-6 py-4">{{ $post->category->name }}</td>
                                     <td class="whitespace-wrap px-6 py-4">{{ $post->body }}</td>
+                                    <td class="whitespace-wrap px-6 py-4">{{ $post->likes_num }}</td>
                                     <td
                                         class="whitespace-nowrap {{ $post->is_active ? 'text-green-600' : 'text-red-700' }} px-6 py-4">
                                         {{ $post->is_active ? 'Active' : 'Inactive' }}
