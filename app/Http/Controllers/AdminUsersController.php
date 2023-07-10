@@ -13,7 +13,7 @@ class AdminUsersController extends Controller
   public function index()
   {
     return view('admin.users.index', [
-      'users' => User::where('id', '!=', auth()->user()->id)->paginate(10)
+      'users' => User::latest()->paginate(10)
     ]);
   }
 
