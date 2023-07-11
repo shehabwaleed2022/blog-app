@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminPostsController;
 use App\Http\Controllers\AdminUsersController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostCommentsController;
 use App\Http\Controllers\PostController;
@@ -37,9 +38,10 @@ Route::resource('admin/users', AdminUsersController::class)->except('show', 'cre
 Route::resource('admin/posts', AdminPostsController::class)->middleware('can:admin')->names([
     'create' => 'admin.posts.create',
     'store' => 'admin.posts.store'
-]);
+])->except('show', 'create', 'store');
 Route::resource('admin/categories', AdminCategoriesController::class)->middleware('can:admin');
 
+Route::post('like/{post}', [LikeController::class, 'store']);
 
 Route::get('register', [RegisterController::class, 'create'])->name('register.create');
 Route::post('register', [RegisterController::class, 'store'])->name('register.store');

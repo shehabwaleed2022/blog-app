@@ -4,7 +4,7 @@
             <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                 <div class="overflow-hidden">
                     <table class="min-w-full text-left text-sm font-light">
-                        <thead class="border-b font-medium dark:border-neutral-500">
+                        <thead class="border-b font-medium dark:border-neutral-500 text-center">
                             <tr>
                                 <th scope="col" class="px-6 py-4 h-8 w-8">Id</th>
                                 <th scope="col" class="px-6 py-4 h-8 w-8">Photo</th>
@@ -19,7 +19,7 @@
                         </thead>
                         <tbody>
                             @foreach ($users as $user)
-                                <tr class="border-b dark:border-neutral-500">
+                                <tr class="border-b dark:border-neutral-500 text-center">
                                     <td class="whitespace-nowrap px-6 py-4">{{ $user->id }}</td>
                                     <td class="whitespace-nowrap px-6 py-4 font-medium rounded-full"><img
                                             src="{{ asset('storage/' . $user->photo) }}"></td>
@@ -30,7 +30,9 @@
                                     <td class="whitespace-nowrap px-6 py-4">{{ count($user->posts) }}</td>
                                     <td class="whitespace-nowrap px-6 py-4">{{ $user->created_at->format('Y-m-d') }}
                                     </td>
-                                    <td class="whitespace-nowrap {{$user->is_active ? 'text-green-600' : 'text-red-700'}} px-6 py-4">{{ $user->is_active ? 'Active' : 'Inactive' }}
+                                    <td
+                                        class="whitespace-nowrap {{ $user->is_active ? 'text-green-600' : 'text-red-700' }} px-6 py-4">
+                                        {{ $user->is_active ? 'Active' : 'Inactive' }}
                                     </td>
                                     <td class="whitespace-nowrap px-6 py-4">
                                         <form method="GET" action="/admin/users/{{ $user->id }}/edit">

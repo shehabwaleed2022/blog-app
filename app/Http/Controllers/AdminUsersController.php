@@ -13,7 +13,7 @@ class AdminUsersController extends Controller
   public function index()
   {
     return view('admin.users.index', [
-      'users' => User::latest()->paginate(10)
+      'users' => User::with('posts')->where('id', '!=', auth()->user()->id)->paginate(10)
     ]);
   }
 
@@ -59,6 +59,6 @@ class AdminUsersController extends Controller
     $user->update($attributes);
 
     // redirect
-    return redirect(route('users.index'))->with('success' , 'User updated successfully.');
+    return redirect(route('users.index'))->with('success', 'User updated successfully.');
   }
 }
