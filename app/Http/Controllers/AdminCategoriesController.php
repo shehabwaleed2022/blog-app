@@ -13,7 +13,8 @@ class AdminCategoriesController extends Controller
     public function index()
     {
         return view('admin.categories.index', [
-            'categories' => Category::with('posts')->orderBy('id' , 'asc')->paginate(10)
+            'categories' => Category::with(['posts' => function ($query) {
+                $query->select('category_id'); }])->withCount('posts')->orderBy('id', 'asc')->paginate(10)
         ]);
     }
 

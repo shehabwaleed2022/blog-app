@@ -26,7 +26,7 @@
                                     <td class="whitespace-nowrap px-6 py-4 text-center">
                                         {{ $category->created_at->format('Y-m-d') }}</td>
                                     <td class="whitespace-nowrap px-6 py-4 text-center">
-                                        {{ count($category->posts) }}</td>
+                                        {{ $category->posts_count }}</td>
 
 
                                     <td class="whitespace-nowrap px-6 py-4 text-center">
