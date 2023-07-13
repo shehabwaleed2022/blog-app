@@ -9,25 +9,6 @@ use Illuminate\Validation\Rule;
 
 class AdminUsersController extends Controller
 {
-<<<<<<< HEAD
-    //
-    public function index()
-    {
-        return view('admin.users.index', [
-            'users' => User::with(['posts' => function ($query) {
-                $query->select('user_id'); }])->withCount('posts')->where('id', '!=', auth()->user()->id)->paginate(10)
-        ]);
-    }
-
-
-
-    public function destroy(User $user)
-    {
-        $user->delete();
-
-        return Redirect::back()->with('success', 'User deleted successfully.');
-    }
-=======
   //
   public function index()
   {
@@ -75,7 +56,6 @@ class AdminUsersController extends Controller
 
     $attributes['is_active'] = ($attributes['status'] == 'active') ? 1 : 0;
     unset($attributes['status']);
->>>>>>> refs/remotes/origin/main
 
 
     $user->update($attributes);

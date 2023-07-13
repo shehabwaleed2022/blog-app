@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\CommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,7 @@ Route::resource('users', UserController::class);
 
 // --- POSTS MODULE ---
 Route::resource('posts', PostController::class);
+
+// --- COMMENTS MODULE ---
+// Route::resource('comments', CommentController::class);
+Route::get('comments', [CommentController::class, 'index']);
