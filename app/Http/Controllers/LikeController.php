@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class LikeController extends Controller
 {
     //
-    public function store(Post $post)
+    public function __invoke(Post $post)
     {
         // if the user allready like the post
         $currentUser = auth()->user();

@@ -41,7 +41,8 @@ Route::resource('admin/posts', AdminPostsController::class)->middleware('can:adm
 ])->except('show', 'create', 'store');
 Route::resource('admin/categories', AdminCategoriesController::class)->middleware('can:admin');
 
-Route::post('like/{post}', [LikeController::class, 'store']);
+Route::post('like/{post}', LikeController::class);
+
 
 Route::get('register', [RegisterController::class, 'create'])->name('register.create');
 Route::post('register', [RegisterController::class, 'store'])->name('register.store');
