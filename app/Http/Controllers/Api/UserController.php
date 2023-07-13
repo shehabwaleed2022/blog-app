@@ -40,7 +40,7 @@ class UserController extends Controller
     {
         //
         $user = User::find($id);
-        return new UsersResource($user);
+        return ApiResponse::send(200, 'User retrieved successfully .', new UsersResource($user));
     }
 
     /**

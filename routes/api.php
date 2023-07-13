@@ -29,4 +29,4 @@ Route::resource('posts', PostController::class);
 
 // --- COMMENTS MODULE ---
 // Route::resource('comments', CommentController::class);
-Route::get('comments', [CommentController::class, 'index']);
+Route::resource('comments', CommentController::class);

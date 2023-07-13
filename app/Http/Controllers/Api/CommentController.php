@@ -19,9 +19,9 @@ class CommentController extends Controller
         //
         $comments = Comment::where('post_id', request('post_id'))->get();
 
-        if(count($comments) != 0){
-            return ApiResponse::send(200 , 'Comments retrieved successfully .' , CommentResource::collection($comments));
-        }else{
+        if (count($comments) != 0) {
+            return ApiResponse::send(200, 'Comments retrieved successfully .', CommentResource::collection($comments));
+        } else {
             return ApiResponse::send(200, 'No comments found', null);
         }
     }
@@ -37,9 +37,16 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(String $id)
     {
         //
+        $comment = Comment::find($id)->get();
+
+        if (count($comment) > 0) {
+            return ApiResponse::send(200, 'Comment retireved successfully .', CommentResource::collection($comment));
+        } else {
+            return ApiResponse::send(200, 'No comment found', []);
+        }
     }
 
     /**
